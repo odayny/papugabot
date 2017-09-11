@@ -1,6 +1,7 @@
 package com.odayny.telegram.papugabot.controller;
 
 import com.odayny.telegram.papugabot.handler.UpdateHandler;
+import com.pengrad.telegrambot.BotUtils;
 import com.pengrad.telegrambot.model.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,8 @@ public class WebhookController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void webhook(@RequestBody Update update) {
+    public void webhook(@RequestBody String rawUpdate) {
+        Update update = BotUtils.parseUpdate(rawUpdate);
         LOGGER.debug("Received request {}", update);
         try {
             updateHandler.handleUpdate(update);
