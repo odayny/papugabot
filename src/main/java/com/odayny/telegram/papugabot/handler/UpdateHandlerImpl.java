@@ -40,6 +40,9 @@ public class UpdateHandlerImpl implements UpdateHandler {
 
     @Override
     public void handleUpdate(Update update) throws IOException {
+        if (update.updateId() == null) {
+            return;
+        }
         if (command(update)) {
             commandHandler.executeCommand(update);
             return;
