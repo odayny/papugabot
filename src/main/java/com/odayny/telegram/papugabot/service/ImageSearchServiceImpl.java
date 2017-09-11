@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,10 @@ public class ImageSearchServiceImpl implements ImageSearchService {
         list.setCx(googleApiKeys.getCx());
         list.setSearchType("image");
         Search result = list.execute();
-        return result.getItems().stream().map(Result::getLink).collect(Collectors.toList());
+        List<Result> items = result.getItems();
+        if (items == null) {
+            return Collections.emptyList();
+        }
+        return items.stream().map(Result::getLink).collect(Collectors.toList());
     }
 }
