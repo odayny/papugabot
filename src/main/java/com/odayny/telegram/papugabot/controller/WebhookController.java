@@ -30,7 +30,7 @@ public class WebhookController {
         LOGGER.debug("Received request {}", update);
         try {
             updateHandler.handleUpdate(update);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOGGER.error("Error while searching {}", update, e);
         }
     }
